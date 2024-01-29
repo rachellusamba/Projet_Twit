@@ -1,5 +1,5 @@
 export default function Paragraph (props) {
         return (
-          <p className="text-white">{props.text}</p>
+          <p className={props.ClassName}>{props.text}</p>
         );
       };
