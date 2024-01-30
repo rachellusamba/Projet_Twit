@@ -1,184 +1,108 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Bloc from './assets/component/Bloc'
-import Paragraph from './assets/component/Paragraph'
 import Image from './assets/component/Image'
-
-
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Links from './assets/component/Links';
+import Button from './assets/component/Button';
+import Squid from './assets/component/Squid';
+import Showmore from './assets/component/Showmore';
+import Home from './assets/Pages./Home';
+import Profil from './assets/Pages./Profil';
+import Follow from './assets/component/Follow';
 function App() {
-
-  const object = [
-    {
-      "author_avatar": "https://picsum.photos/200?random=1604299903000",
-      "source": "Twitter",
-      "date": 1604299903000,
-      "favorites": "92746",
-      "id": "1323155810910982145",
-      "isVerified": true,
-      "replies": "24785",
-      "retweets": "16287",
-      "text": "...As I said at the debate – “Will you remember that Texas?Pennsylvania? Ohio? New Mexico?” I will always protect American Energy and American Jobs! Get out and VOTE #MAGA!"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1609942590000",
-      "source": "Apple",
-      "date": 1609942590000,
-      "favorites": "396603",
-      "id": "1346822958006886400",
-      "isVerified": false,
-      "replies": "896",
-      "retweets": "54694",
-      "text": "Even Mexico uses Voter I.D.",
-      "image": "https://picsum.photos/1024/200?random=1346822958006886400"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1604231375000",
-      "source": "Twitter for iPhone",
-      "date": 1604231375000,
-      "favorites": "124689",
-      "id": "1322868385361891328",
-      "isVerified": true,
-      "replies": "8",
-      "retweets": "22972",
-      "text": "When I originally became your all time favorite President, the Great State of Michigan was hemorrhaging car companies and jobs. Plants were closing and moving to Mexico, and other places. No new plants for decades. I stopped the moves, &amp; now many plants are and have been built...",
-      "image": "https://picsum.photos/200/800?random=1322868385361891328"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1604084613000",
-      "source": "CNN",
-      "date": 1604084613000,
-      "favorites": "44842",
-      "id": "1322252819299135488",
-      "isVerified": false,
-      "replies": "1024",
-      "retweets": "9563",
-      "text": "...a cheerleader for NAFTA – sending your auto Jobs to Mexico. He voted for China’s entry into the World Trade Organization – gutting your industries to finance China’s rise. HALF of all Michigan auto manufacturing jobs were ELIMINATED after the Biden-Backed NAFTA and China...",
-      "image": "https://picsum.photos/200?random=1322252819299135488"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1603037689000",
-      "source": "Trump D.",
-      "date": 1603037689000,
-      "favorites": 62414,
-      "id": "1317861704819118080",
-      "isVerified": false,
-      "replies": "258",
-      "retweets": 16811,
-      "text": "Not my Wall, which will soon be finished (and Mexico will pay for the Wall!). Totally unrelated, but I think Steve will be just fine. By the way, is this the same job hopping Tim O’Brien that headed Mini Mike Bloomberg’s humiliating 2 Billion Dollar Presidential run? Debate prep! https://t.co/cQfEtszRrB"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1602377246000",
-      "source": "Lauraine L.",
-      "date": 1602377246000,
-      "favorites": 34952,
-      "id": "1315091604496158720",
-      "isVerified": true,
-      "replies": "85",
-      "retweets": 10008,
-      "text": "Yvette Herrell (@Yvette4Congress) is a proven fighter for New Mexico! She strongly supports our Brave Law Enforcement, Life and the Second Amendment. Strong on the Border and Trade, Yvette has my Complete and Total Endorsement! #NM02 https://t.co/77hjYfVWAB",
-      "image": "https://picsum.photos/200?random=1315091604496158720"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1601996447000",
-      "source": "Mexico City",
-      "date": 1601996447000,
-      "favorites": 58201,
-      "id": "1313494418314457090",
-      "isVerified": true,
-      "replies": "0",
-      "retweets": 14359,
-      "text": "NEW MEXICO! Today is the last day you can register to vote online or via mail. Make sure your vote counts! \nhttps://t.co/WwzdPhDkAZ"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1554075712000",
-      "source": "New York Times",
-      "date": 1554075712000,
-      "favorites": 58201,
-      "id": "1313494418314457090",
-      "isVerified": true,
-      "replies": "0",
-      "retweets": 14359,
-      "text": "....However, if for any reason Mexico stops apprehending and bringing the illegals back to where they came from, the U.S. will be forced to Tariff at 25% all cars made in Mexico and shipped over the Border to us. If that doesn’t work, which it will, I will close the Border......."
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1604231375000",
-      "source": "Twitter for iPhone",
-      "date": 1601996447000,
-      "favorites": 58201,
-      "id": "1313494418314457090",
-      "isVerified": true,
-      "replies": "0",
-      "retweets": 14359,
-      "text": "A 9th Circuit Judge just ruled that Mexico is too dangerous for migrants. So unfair to the U.S. OUT OF CONTROL! https://t.co/XF8o3jMDle"
-    },
-    {
-      "author_avatar": "https://picsum.photos/200?random=1548956601000",
-      "source": "Samsung",
-      "date": 1601996447000,
-      "favorites": 58201,
-      "id": "1313494418314457090",
-      "isVerified": true,
-      "replies": "0",
-      "retweets": 14359,
-      "text": "A 9th Circuit Judge just ruled that Mexico is too dangerous for migrants. So unfair to the U.S. OUT OF CONTROL! https://t.co/XF8o3jMDle",
-      "image": "https://picsum.photos/2048/1024?random=1313494418314457090"
-    }
-  ]
+ 
 
   return (
-    <div className='flex'>
-      <div className="w-1/3">
-        {/* <div className=''>
-          <Image src={'Twit.SVG/Icons/Twitter.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Home-Fill.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Explore.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Notifications.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Messages.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Bookmarks.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Lists.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/Profile.svg'} alt='' />
-          <Image src={'Twit.SVG/Icons/More.svg'} alt='' />
-        </div> */}
-      </div>
-      <div className="w-1/3 border border-slate-800">
-        <div className="justify-between flex m-4  ">
-          <div>
-            <h1 className='text-white font-bold text-3xl'>Home</h1>
+    <div className='flex ml-60'>
+      <div className="w-2/12 ">
+        <div className='fixed left-0 top-1 right-0 w-2/12 ml-60'>
+          <div className='mt-8 w-2/12'>
+            <Image src={'/src/assets/Images/Svg/Icons/Twitter.svg'} alt='' className='w-11 h-7 mb-2' />
+            <Links to="/" src={'/src/assets/Images/Svg/Icons/Home-Fill.svg'} text='Home' className="flex gap-5 hover:bg-slate-700 w-32 mt-4 h-8 rounded-3xl" />
+            <Links  src={'/src/assets/Images/Svg/Icons/Explore.svg'} text='Explore' className="flex gap-5  hover:bg-slate-700 mt-4 w-36 h-8 rounded-3xl" />
+            <Links  src={'/src/assets/Images/Svg/Icons/Notifications.svg'} text='Notifications' className="flex gap-5 hover:bg-slate-700 w-44 h-8 mt-4 rounded-3xl" />
+            <Links  src={'/src/assets/Images/Svg/Icons/Messages.svg'} text='Messages' className="flex gap-5 hover:bg-slate-700 w-36 h-8 mt-4 rounded-3xl" />
+            <Links  src={'/src/assets/Images/Svg/Icons/Bookmarks.svg'} text='Bookmarks' className="flex gap-5 hover:bg-slate-700 w-40 h-8 mt-4 rounded-3xl" />
+            <Links  src={'/src/assets/Images/Svg/Icons/Lists.svg'} text='Lists' className="flex gap-5 hover:bg-slate-700 w-32 h-8 mt-4 rounded-3xl" />
+            <Links to="/Profil" src={'/src/assets/Images/Svg/Icons/Profile.svg'} text='Profil' className="flex gap-5 hover:bg-slate-700 w-36 mt-4 h-8 rounded-3xl" />
+            <Links   src={'/src/assets/Images/Svg/Icons/More-2.svg'} text='More' className="flex gap-5 hover:bg-slate-700 w-32 mt-4 h-8 rounded-3xl" />
           </div>
-          <div>
-            <Image src={"Twitter UI Clone Design (Community)(3)/Icons/Timeline-Prop.png"} className="w-15 h-10" />
+          <div className='pt-10'>
+            <Button className='bg-blue-400 w-20 text-white w-48 h-12 rounded-3xl' text="Post" />
           </div>
-        </div>
-
-        <div className=" border-b border-slate-800 border-t border-slate-800">
-          <div className='flex'>
-            <Image src={"Twitter UI Clone Design (Community)(3)/Profile-Photo.png"} className="w-25 h-12 m-3" />
-            <textarea className='bg-black text-white pt-2 resize-none mt-3' placeholder=" What ' s  happening ?" />
-          </div>
-          <div className="flex justify-between  mr-2 mb-2">
-            <div className="flex ml-14 ">
-              <Image src={"Twitter UI Clone Design (Community)(4)/Tweet-Editör/Butons/Top-Tweets.png"} alt="" className="w-8 h-8" />
-              <Image src={"Twitter UI Clone Design (Community)(4)/Tweet-Editör/Butons/Top-Tweets-1.png"} alt="" className="w-8 h-8" />
-              <Image src={"Twitter UI Clone Design (Community)(4)/Tweet-Editör/Butons/Top-Tweets-2.png"} alt="" className="w-8 h-8" />
-              <Image src={"Twitter UI Clone Design (Community)(4)/Tweet-Editör/Butons/Top-Tweets-3.png"} alt="" className="w-8 h-8" />
-              <Image src={"Twitter UI Clone Design (Community)(4)/Tweet-Editör/Butons/Top-Tweets-4.png"} alt="" className="w-8 h-8" />
+          <div className='flex mt-36 gap-2'>
+            <Image src={'/src/assets/Images/Capture d’écran du 2024-01-19 10-36-26.png'} alt="" className="w-16 h-16 rounded-full" />
+            <div className=' flex'>
+              <h2>Rachaellus<br />@Rachael</h2>
+              <Image src='/src/assets/Images/Svg/Icons/Private.svg' alt='' className='w-5 h-5' />
             </div>
-            <div>
-              <button className=' bg-blue-400 w-20 h-8 rounded-3xl text-white'>Tweets</button>
+            <div className='pb-3'>
+              <Image src={'/src/assets/Images/Svg/Icons/More-2.svg'} alt='' className='' />
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-5/12 border border-slate-800 ml-2 ">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/Profil' element={<Profil />} />
+        </Routes>
+      </div>
+      <div className="w-3/12 pl-4 mt-1 ">
+        <div className='sticky left-0 top-0 right-0'>
+          <div className='w-64 h-14'>
+            <div className='flex gap-3 bg-gray-800 w-64 h-12 rounded-3xl '>
+              <Image src='/src/assets/Images/Svg/Icons/Search.svg' alt='' className='w-5 h-5 ml-4 mt-4' />
+              <input className=' w-48 h-10 mt-1 bg-gray-800' placeholder='Search' />
+            </div>
+          </div>
+          <div className='bg-gray-800 w-64 h-140 pl-4 pr-1 pt-2 pb-2 rounded-xl'>
+            <div className='flex justify-between pb-2'>
+              <p className=' font-bold'>Trends for you</p>
+              <Image src='/src/assets/Images/Svg/Icons/Settings.svg' className='w-6 h-6' />
+            </div>
+            <Squid />
+            <Squid />
+            <Squid />
+            <Squid />
+            <Showmore />
+          </div>
+          <div className=' bg-gray-800 mt-2 w-64 h-54 rounded-xl pl-2'>            
+            <div className='flex pt-2 gap-2 '>
+              <Image src="/src/assets/Images/Twitter UI Clone Design (Community)(4)/image 1.png" alt="" className="w-10 h-10 rounded-full" />
+              <div className='flex gap-5'>
+                <div>
+                  <Follow className='font-bold' text="New york " />
+                  <p className='text-gray-500'>@nytimes</p>
+                </div>
+                <Button className="w-14 h-6 mt-2 ml-4 bg-slate-200 rounded-3xl text-black " text="Follow" />
+              </div>
+            </div>
+            <div className='flex pt-2 gap-2'>
+              <Image src="/src/assets/Images/Twitter UI Clone Design (Community)(3)/Tweet-Profile-Photo(1).png" alt="" className="w-10 h-10 rounded-full" />
+              <div className='flex gap-14'>
+                <div>
+                  <Follow className='font-bold' text="CNN" />
+                  <p className='text-gray-500'>@CNN</p>
+                </div>
+                <Button className="w-14 h-6 mt-2 ml-4 bg-slate-200 rounded-3xl text-black " text="Follow" />
+              </div>
+            </div>
+            <div className='flex gap-2 pt-2'>
+              <Image src="/src/assets/Images/IMG_8160.jpg" alt="" className="w-10 h-10 rounded-full" />
+              <div className='flex gap-10'>
+                <div>
+                  <Follow className='font-bold' text="Twitter" />
+                  <p className='text-gray-500'>Twitter</p>
+                </div>
+                <Button className="w-14 h-6 mt-2 ml-3 bg-slate-200 rounded-3xl text-black " text="Follow" />
+              </div>
+            </div>
+            <div className='ml-2'>
+              <Showmore />
+            </div>
 
-
-        <div>
-          {
-            object.map((objet) => <Bloc Tweets={objet} />)
-          }
+          </div>
         </div>
       </div>
-      <div className="w-1/3"></div>
     </div>
   );
 }
