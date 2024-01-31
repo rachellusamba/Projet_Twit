@@ -12,7 +12,7 @@ const [user, setUser] = useState([])
     axios.get("https://my-json-server.typicode.com/amare53/twiterdb/users/" + Tweets.userId )
       .then((response) => {
         setUser(response.data)
-         console.log(response.data);
+        //  console.log(response.data);
       })
        .catch((err) => {
         console.log(err)

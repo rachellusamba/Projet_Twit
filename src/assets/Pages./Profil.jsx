@@ -110,7 +110,7 @@ export default function Profil() {
       <div className="mt-4 ml-6">
         <h2 className="text-2xl font-bold" >Who to follow</h2>
         {
-          tab.map((tab) => <BlocT Props={tab} />)
+          tab.map((table, index) => <BlocT Props={table} key={index} />)
         }
       </div>
     </>)

@@ -13,18 +13,29 @@ export default function Home(props) {
     ])
       .then(
         axios.spread((users, posts) => {
-          // level one
-          console.log('level one');
-          console.log(posts.data);
           setPost(posts.data)
-
-          // level two
-          console.log('level two');
+          console.log(posts.data);
           console.log(users.data);
         })
       )
       .catch((err) => console.log(err));
   }, [])
+
+  // Fetch axios  
+
+  axios.post('https://jsonplaceholder.typicode.com/posts',  {
+  method: 'POST',
+  body: JSON.stringify({
+    title: 'foo',
+    body: 'bar',
+    userId: 1,
+  }),
+  header: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((response) => response.json())
+  .then((json) => console.log(json));
 
   return (
     <div className="w-100 ">
