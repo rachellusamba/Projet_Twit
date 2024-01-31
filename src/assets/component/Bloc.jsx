@@ -8,7 +8,6 @@ import axios from "axios"
 export default function Bloc({ Tweets }) {
 
 const [user, setUser] = useState([])
-
  useEffect(() => {
     axios.get("https://my-json-server.typicode.com/amare53/twiterdb/users/" + Tweets.userId )
       .then((response) => {
@@ -20,8 +19,8 @@ const [user, setUser] = useState([])
        });
    },[]
   )
-    return (
 
+    return (
         <div className='flex p-4 mt-4 border-b border-slate-800' >
             <div>
                 <Image className=' rounded-full h-16 w-40 ' src={user.thumbnailProfil} alt="image" />
@@ -50,7 +49,6 @@ const [user, setUser] = useState([])
                 </div>
             </div>
         </div>
-
     );
 
 }
