@@ -4,51 +4,58 @@ import { useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
 import Bloc from "../component/Bloc"
-import BlocT from "../component/BlocT"
+// import BlocT from "../component/BlocT"
 
 
 export default function Home(props) {
 
   const [post, setPost] = useState([])
-  const [posts, setPoste] = useState([])
-  useEffect(() => {
-    axios.get("https://my-json-server.typicode.com/amare53/twiterdb/users")
-      .then((response) => {
-        setPost(response.data)
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-  }, []
-  )
-  useEffect(() => {
-    axios.get("https://my-json-server.typicode.com/amare53/twiterdb/posts")
-      .then((response) => {
-        setPoste(response.data)
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-  }, []
-  )
-
-  const [postContent, setPostContent] = useState(''); 
-
-  // axios.all([
-  //   axios.get("https://my-json-server.typicode.com/amare53/twiterdb/users"),
-  //   axios.get("https://my-json-server.typicode.com/amare53/twiterdb/posts")
-  // ])
-  // .then(
-  //   axios.spread(() => {
-  //     console.log(post, setPost);
-  //     console.log(posts, setPoste);
-  //   })
+  // useEffect(() => {
+  //   axios.get("https://my-json-server.typicode.com/amare53/twiterdb/users")
+  //     .then((response) => {
+  //       setPost(response.data)
+  //       console.log(response.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     });
+  // }, []
   // )
-  // .catch((err) => console.log(err));
+  // useEffect(() => {
+  //   axios.get("https://my-json-server.typicode.com/amare53/twiterdb/posts")
+  //     .then((response) => {
+  //       setPoste(response.data)
+  //       console.log(response.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     });
+  // }, []
+  // )
 
- 
+  const [postContent, setPostContent] = useState('');
+
+  useEffect(() => {
+    axios.all([
+      axios.get("https://my-json-server.typicode.com/amare53/twiterdb/users"),
+      axios.get("https://my-json-server.typicode.com/amare53/twiterdb/posts")
+    ])
+      .then(
+        axios.spread((users, posts) => {
+          // level one
+          console.log('level one');
+          console.log(posts.data);
+          setPost(posts.data)
+
+          // level two
+          console.log('level two');
+          console.log(users.data);
+        })
+      )
+      .catch((err) => console.log(err));
+
+  }, [])
+
 
   return (
     <div className="w-100 ">
@@ -62,7 +69,7 @@ export default function Home(props) {
           <div>
             <Image src={"/src/assets/Images/Capture d’écran du 2024-01-19 10-36-26.png"} className="w-14 h-14 rounded-full m-3" />
           </div>
-          <textarea name="content" value={postContent}  onChange={e => setPostContent(e.target.value)} className='bg-black resize-y text-white mt-4 w-44 h-10' placeholder=" What ' s  happening ?" rows="2"></textarea>
+          <textarea name="content" value={postContent} onChange={e => setPostContent(e.target.value)} className='bg-black resize-y text-white mt-4 w-44 h-10' placeholder=" What ' s  happening ?" rows="2"></textarea>
         </div>
         <div className="flex justify-between  ml-16 mb-2 pr-2">
           <div className="flex ml-3 ">
@@ -77,13 +84,13 @@ export default function Home(props) {
           </div>
         </div>
       </div>
-      <div>      
-         {
-          post.map((objet, index) => <Bloc Tweets={objet} key={index} />)
-        } 
+      <div>
         {
+          post.map((objet, index) => <Bloc Tweets={objet} key={index} />)
+        }
+        {/* {
           posts.map((obje, index) => <BlocT Props={obje} key={index} />)
-        } 
+        }  */}
       </div>
     </div>
   )
